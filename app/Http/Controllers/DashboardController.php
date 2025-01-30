@@ -14,6 +14,7 @@ class DashboardController extends Controller
     {
         $abonneCount = User::where('role', 'abonne')->count();
         $responsableCount = User::where('role', 'responsable')->whereHas('themes')->count();
+        
         $articleCount = Article::count();
 
         return view('Editeur.Dashboard', compact('abonneCount', 'responsableCount', 'articleCount'));
@@ -22,7 +23,7 @@ class DashboardController extends Controller
     public function getAllUsers()
     {
         $usersAbonne = User::where('role', 'abonne')->whereHas('themeSubscriptions')->get();
-        $usersResponable = User::where('role', 'responsable')->whereHas('themes')->get();
+        $usersResponable = User::where('role', 'responsable')->get();
         $allThemes = Theme::all();
         return view('Editeur.ManageUsers', compact('allThemes' ,'usersAbonne', 'usersResponable'));
     }

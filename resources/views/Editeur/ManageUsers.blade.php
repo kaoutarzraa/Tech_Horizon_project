@@ -203,7 +203,6 @@
                                             <tr>
                                                 <th>Nom</th>
                                                 <th>Email</th>
-                                                <th>Thème</th>
                                                 <th>Statut</th>
                                                 <th>Actions</th>
                                             </tr>
@@ -213,7 +212,6 @@
                                                 <tr>
                                                     <td>{{ $user->username }}</td>
                                                     <td>{{ $user->email }}</td>
-                                                    <td>{{ optional($user->themeSubscriptions->first()->theme)->name ?? 'N/A' }}</td>
                                                     <td>
                                                         <span class="badge bg-{{ $user->status === 'actif' ? 'success' : 'danger' }}">
                                                             {{ ucfirst($user->status) }}

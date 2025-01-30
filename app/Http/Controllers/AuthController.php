@@ -52,6 +52,7 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user);
+
         $allThemes = $this->themeController->getAllThemes();
 
         return redirect()->route('home')->with('themes', $allThemes);
@@ -62,7 +63,6 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
         return redirect()->route('/');
     }
 

@@ -9,8 +9,6 @@ use App\Http\Controllers\MagazineController;
 use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
-use App\Models\Article;
-use App\Models\Theme;
 
 // Route pour la page d'accueil (welcome)
 Route::get('/', function () {
@@ -27,10 +25,11 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/getArticles/byThemeId/{id}', [ArticleController::class, 'getArticleByThemeId']);
 
 Route::middleware(['role:invite'])->group(function () {
-    Route::get('/theme/{id}', [ThemeController::class, 'show'])->name('theme.show');
     Route::get('/subscribe/{themeId}', [SubscriptionController::class, 'subscribe'])->name('subscribe');
 });
+
 Route::middleware(['role:abonne'])->group(function () {
+    Route::get('/subscribe/{themeId}', [SubscriptionController::class, 'subscribe'])->name('subscribe');
     Route::get('/subscriptions', [SubscriptionController::class, 'manageSubscriptions'])->name('subscriptions');
     Route::get('/subscription/changeStatusToExpire/{id}', [SubscriptionController::class, 'changeStatusToExpire'])->name('changeStatusToExpire');
     Route::get('/manageArticles/bySubscriber', [ArticleController::class, 'getAllArticlesByUserId'])->name('getAllArticlesByUserId');

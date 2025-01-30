@@ -11,6 +11,7 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
+
         $validatedData = $request->validate([
             'username' => 'required|string|max:255',
             'full_name' => 'required|string|max:255',

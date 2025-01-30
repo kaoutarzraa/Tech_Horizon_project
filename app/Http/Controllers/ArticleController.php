@@ -18,7 +18,6 @@ class ArticleController extends Controller
         $themes = Theme::all();
 
         if($subsribeCheck){
-
             $articles = Article::where('is_active', true)->where('theme_id', $id)->latest()->get();
             return view('articles.ArticlesPage' , compact('themes' , 'articles' , 'id'));
         }
