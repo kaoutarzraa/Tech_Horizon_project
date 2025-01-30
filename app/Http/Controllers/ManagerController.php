@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 
-class managerController extends Controller
+class ManagerController extends Controller
 {
     public function index($themeId)
     {
