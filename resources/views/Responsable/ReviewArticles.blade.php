@@ -66,7 +66,7 @@
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
         }
 
@@ -98,6 +98,7 @@
             border-radius: 8px;
             margin-bottom: 2rem;
         }
+        
 
         /* Responsive Grid */
         @media (max-width: 768px) {
@@ -166,18 +167,18 @@
                 <div class="card">
                     <div class="card-body">
                         <p>Revoir et approuver ou rejeter les articles soumis.</p>
-                        <ul class="list-group">
-                            @foreach($articles as $article)
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                {{ $article->title }} - Soumis le {{ $article->submission_date }}
-                                <div>
-                                    <button class="btn btn-success btn-sm publish-btn" data-bs-toggle="modal" data-bs-target="#publishModal{{ $article->id }}" data-article-id="{{ $article->id }}" data-article-title="{{ $article->title }}">Publier</button>
-                                    <button class="btn btn-danger btn-sm reject-btn" data-bs-toggle="modal" data-bs-target="#rejectModal{{ $article->id }}" data-article-id="{{ $article->id }}" data-article-title="{{ $article->title }}">Rejeter</button>
-                                </div>
-                            </li>
-
-                            <!-- Publish Confirmation Modal -->
-                            <div class="modal fade" id="publishModal{{ $article->id }}" tabindex="-1" aria-labelledby="publishModalLabel" aria-hidden="true">
+                        @foreach($articles as $article)
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ $article->title }} - Soumis le {{ $article->submission_date }}
+                                    <div>
+                                        <button class="btn btn-success btn-sm publish-btn" data-bs-toggle="modal" data-bs-target="#publishModal{{ $article->id }}" data-article-id="{{ $article->id }}" data-article-title="{{ $article->title }}">Publier</button>
+                                        <button class="btn btn-danger btn-sm reject-btn" data-bs-toggle="modal" data-bs-target="#rejectModal{{ $article->id }}" data-article-id="{{ $article->id }}" data-article-title="{{ $article->title }}">Rejeter</button>
+                                    </div>
+                                </li>
+                            </ul>
+                                <!-- Publish Confirmation Modal -->
+                            <div class="modal fade" id="publishModal{{ $article->id }}" tabindex="-1" aria-labelledby="publishModalLabel{{ $article->id }}" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -198,7 +199,7 @@
                             </div>
 
                             <!-- Reject Confirmation Modal -->
-                            <div class="modal fade" id="rejectModal{{ $article->id }}" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="rejectModal{{ $article->id }}" tabindex="-1" aria-labelledby="rejectModalLabel{{ $article->id }}" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -217,17 +218,17 @@
                                     </div>
                                 </div>
                             </div>
-                            @endforeach
-                        </ul>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Scripts -->
+    
+</body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
+    <!-- Scripts -->
     <script>
         // Add active class to current nav item
         document.addEventListener('DOMContentLoaded', function() {
@@ -247,5 +248,4 @@
             sidebar.classList.toggle('show');
         }
     </script>
-</body>
 </html>
