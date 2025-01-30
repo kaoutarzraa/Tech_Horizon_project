@@ -44,7 +44,7 @@ class ThemeController extends Controller
     public function publishArticle($articleId)
     {
         $article = Article::find($articleId);
-        $article->status = 'published';
+        $article->status = 'publie';
         $article->save();
         return redirect()->back()->with('success', 'Article published successfully.');
     }
@@ -52,7 +52,7 @@ class ThemeController extends Controller
     public function rejectArticle($articleId)
     {
         $article = Article::find($articleId);
-        $article->status = 'rejected';
+        $article->status = 'refuse';
         $article->save();
         return redirect()->back()->with('success', 'Article rejected successfully.');
     }
@@ -75,5 +75,10 @@ class ThemeController extends Controller
         $discussion = Conversation::find($discussionId);
         $discussion->delete();
         return redirect()->back()->with('success', 'Discussion deleted successfully.');
+    }
+
+    public function getAllThemes(){
+        $allThemes = Theme::all();
+        return $allThemes;
     }
 }

@@ -8,8 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-        background-color: #f8f9fa;
-            }
+            background-color: #f8f9fa;
+        }
         .sidebar {
             height: 100vh;
             background-color: #343a40;
@@ -54,6 +54,14 @@
 
             <!-- Main Content -->
             <div class="col-md-9 content">
+                <div class="messages-container">
+                    @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
+                </div>
 
                 <!-- Review Articles Section -->
                 <section id="review-articles">
@@ -66,13 +74,52 @@
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     {{ $article->title }} - Submitted on {{ $article->submission_date }}
                                     <div>
-                                        <button class="btn btn-success btn-sm">Publish</button>
-                                        <button class="btn btn-danger btn-sm">Reject</button>
+                                        <button class="btn btn-success btn-sm publish-btn" data-bs-toggle="modal" data-bs-target="#publishModal{{ $article->id }}" data-article-id="{{ $article->id }}" data-article-title="{{ $article->title }}">Publish</button>
+                                        <button class="btn btn-danger btn-sm reject-btn" data-bs-toggle="modal" data-bs-target="#rejectModal{{ $article->id }}" data-article-id="{{ $article->id }}" data-article-title="{{ $article->title }}">Reject</button>
                                     </div>
                                 </li>
+                                    <!-- Publish Confirmation Modal -->
+                                <div class="modal fade" id="publishModal{{ $article->id }}" tabindex="-1" aria-labelledby="publishModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="publishModalLabel">Publish Article</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to publish the article "<span id="publishArticleTitle">{{ $article->title }}</span>"?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <a href="publishArticle/{{ $article->id }}">
+                                                    <button type="button" class="btn btn-success" id="confirmPublish">Publish</button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                   <!-- Reject Confirmation Modal -->
+                                <div class="modal fade" id="rejectModal{{ $article->id }}" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="rejectModalLabel">Reject Article</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to reject the article "<span id="rejectArticleTitle">{{ $article->title }}</span>"?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <a href="rejectArticle/{{ $article->id }}">
+                                                    <button type="button" class="btn btn-danger" id="confirmReject">Reject</button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 @endforeach
-                            </ul>
-                                <!-- Add more articles dynamically -->
                             </ul>
                         </div>
                     </div>
@@ -80,6 +127,10 @@
             </div>
         </div>
     </div>
+
+
+
+ 
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

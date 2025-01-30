@@ -36,7 +36,7 @@ class ArticleController extends Controller
 
     public function getAllArticleToResponsable(){
         $themes = Theme::where('responsable_id' , Auth::id())->get();
-        $articles = Article::whereIn('theme_id', $themes->pluck('id'))->where('status' , 'en_cours')->get();
+        $articles = Article::whereIn('theme_id', $themes->pluck('id'))->where('status' , 'propose')->get();
 
         return view('Responsable.ReviewArticles', compact('articles'));
     }

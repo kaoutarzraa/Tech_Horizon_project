@@ -36,6 +36,8 @@ Route::middleware(['role:responsable'])->group(function () {
     Route::get('/dashboard/responsable/themes', [ThemeController::class, 'getAllThemesByUserId'])->name('getAllThemesByUserId');
     Route::get('/dashboard/responsable/superviseArticles/{id}', [ThemeController::class, 'superviseArticles'])->name('superviseArticles');
     Route::get('/dashboard/responsable/reviewArticles', [ArticleController::class, 'getAllArticleToResponsable'])->name('getAllArticleToResponsable');
+    Route::get('/dashboard/responsable/rejectArticle/{id}', [ThemeController::class, 'rejectArticle'])->name('rejectArticle');
+    Route::get('/dashboard/responsable/publishArticle/{id}', [ThemeController::class, 'publishArticle'])->name('publishArticle');
     Route::get('/dashboard/responsable/subscriptions/{id}', [ThemeController::class, 'manageSubscriptions'])->name('manageSubscriptions');
     Route::get('/subscription/changeStatusToExpire/{id}', [SubscriptionController::class, 'changeStatusToExpire'])->name('changeStatusToExpire');
 
