@@ -17,7 +17,7 @@ class Article extends Model
 
     // Attributs qui peuvent être assignés en masse
     protected $fillable = [
-        'title', 'content', 'theme_id', 'issue_id', 'author_id', 
+        'title', 'content', 'theme_id', 'image_url',  'issue_id', 'author_id', 
         'status', 'submission_date', 'publication_date', 'is_active'
     ];
 

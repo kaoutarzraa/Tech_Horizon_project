@@ -190,10 +190,6 @@
 </head>
 <body>
 
-@if (isset($role))
-    <p>{{ $role }}</p>
-@endif
-
  @include('../layouts.header')
 
     <section class="hero">
@@ -209,7 +205,7 @@
             @foreach ($themes as $theme)
                 <div class="theme">
                     <button onclick="window.location.href='/getArticles/byThemeId/{{ $theme['id'] }}';">
-                        <img src="/Uploads/article.jpg" alt="{{ $theme['title'] }}">
+                    <img src="{{ asset('storage/' . $theme['image_url']) }}" alt="{{ $theme['title'] }}">
                         <h3>{{ $theme['title'] }}</h3>
                         <p>{{ $theme['description'] }}</p>
                     </button>

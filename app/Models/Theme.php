@@ -12,7 +12,7 @@ class Theme extends Model
     protected $table = 'themes';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['name', 'description', 'responsable_id'];
+    protected $fillable = ['name', 'description', 'image_url', 'responsable_id' , ];
 
     // Relation avec les articles
     public function articles()

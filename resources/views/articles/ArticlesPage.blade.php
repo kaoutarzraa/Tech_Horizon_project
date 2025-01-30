@@ -280,7 +280,7 @@
         <main class="articles-grid">
             @foreach($articles as $article)
                 <article class="article">
-                    <img src="{{ $article->image_url }}" alt="{{ $article->category }}" class="article-image">
+                    <img src="{{ asset('Uploads/' . $article->image_url) }}" alt="{{ $article->category }}" class="article-image">
                     <div class="article-content">
                         <span class="category-tag">{{ $article->category }}</span>
                         <div class="article-meta">

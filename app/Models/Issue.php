@@ -13,7 +13,7 @@ class Issue extends Model
     protected $table = 'issues';
 
     // Spécifie la clé primaire
-    protected $primaryKey = 'issue_id';
+    protected $primaryKey = 'id';
 
     // Désactive les timestamps car la table utilise `created_at` et `updated_at` manuellement si besoin
     public $timestamps = false;

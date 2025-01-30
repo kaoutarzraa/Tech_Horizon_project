@@ -263,10 +263,8 @@
         <nav class="main-nav">
             <div class="logo">Tech Horizon</div>
             <ul>
-                <li><a href="#">Accueil</a></li>
-                <li><a href="#">Mon Profil</a></li>
-                <li><a href="#">Notifications</a></li>
-                <li><a href="#">Déconnexion</a></li>
+                <li><a href="/home">Accueil</a></li>
+                <li><a href="/Logout">Déconnexion</a></li>
             </ul>
         </nav>
     </header>
@@ -278,7 +276,7 @@
             <nav>
                 <ul class="sidebar-nav">
                     <li><a href="#">Visualiser les Numéros</a></li>
-                    <li><a href="#" class="active">Gérer les Abonnements</a></li>
+                    <li><a href="/subscriptions" class="active">Gérer les Abonnements</a></li>
                     <li><a href="#">Historique de Navigation</a></li>
                     <li><a href="/manageArticles/bySubscriber">Proposer un Article</a></li>
                     <li><a href="#">Mes Notes</a></li>

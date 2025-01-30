@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>logiiiiin</title>
+	<title>Inscription</title>
 	<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
 	<style>
 		body{
@@ -116,6 +116,23 @@
 			font-weight: bold;
 			color: #fff;
 		}
+
+		  .footer {
+            text-align: center;
+            margin-top: 25px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
 	</style>
 </head>
 <body>
@@ -126,13 +143,16 @@
 		<div class="signup">
 			<form action="{{ route('register') }}" method="POST">
 				@csrf
-				<label for="chk" aria-hidden="true">Sign up</label>
+				<label for="chk" aria-hidden="true">Inscription</label>
 				<input type="text" name="username" placeholder="Username" required="">
 				<input type="text" name="full_name" placeholder="Full Name" required="">
 				<input type="email" name="email" placeholder="Email" required="">
 				<input type="password" name="password" placeholder="Password" required="">
-				<button type="submit">Sign up</button>
+				<button type="submit">Inscription</button>
 			</form>
+			<div class="footer">
+			J'ai déjà un compte ? <a href="/login">Connexion</a>
+        </div>
 			@if ($errors->any())
 				<div class="alert alert-danger">
 					<ul>

@@ -47,7 +47,7 @@
                     <li><a href="#subscriptions">Manage Subscriptions</a></li>
                     <li><a href="#articles">Supervise Articles</a></li>
                     <li><a href="/dashboard/responsable/reviewArticles">Review Articles</a></li>
-                    <li><a href="#statistics">View Statistics</a></li>
+                    <li><a href="/dashboard/responsable/statistics">View Statistics</a></li>
                     <li><a href="#discussions">Moderate Discussions</a></li>
                 </ul>
             </div>

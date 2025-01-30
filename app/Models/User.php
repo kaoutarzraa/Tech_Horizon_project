@@ -108,4 +108,9 @@ class User extends Authenticatable
     {
         return $this->themeSubscriptions()->where('status', 'actif')->count();
     }
+
+    public function themes()
+    {
+        return $this->belongsToMany(Theme::class, 'theme_subscriptions', 'user_id', 'theme_id');
+    }
 }

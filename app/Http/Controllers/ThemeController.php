@@ -81,4 +81,72 @@ class ThemeController extends Controller
         $allThemes = Theme::all();
         return $allThemes;
     }
+
+    public function store(Request $request)
+    {
+
+        $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg'
+        ]);
+
+        $theme = new Theme();
+        $theme->name = $request->name;
+        $theme->description = $request->description;
+        $theme->responsable_id = Auth::id();
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('themes', 'public');
+            $theme->image_url = $imagePath;
+        }
+
+        $theme->save();
+
+        return redirect()->back()->with('success', 'Theme created successfully');
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        $theme = Theme::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+
+        $theme->name = $request->name;
+        $theme->description = $request->description;
+        $theme->responsable_id = Auth::id();
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('themes', 'public');
+            $theme->image_url = $imagePath;
+        }
+
+        $theme->save();
+
+        return redirect()->back()->with('success', 'Theme updated successfully');
+    }
+
+    public function destroy($id)
+    {
+        $theme = Theme::findOrFail($id);
+        $theme->delete();
+        return redirect()->back()->with('success', 'Theme deleted successfully');
+    }
+
+    // public function showSubscriptions(Theme $theme)
+    // {
+    //     $subscriptions = $theme->subscriptions;
+    //     return view('dashboard.responsable.themes.subscriptions', compact('theme', 'subscriptions'));
+    // }
+
+    // public function showArticles(Theme $theme)
+    // {
+    //     $articles = $theme->articles;
+    //     return view('dashboard.responsable.themes.articles', compact('theme', 'articles'));
+    // }
 }

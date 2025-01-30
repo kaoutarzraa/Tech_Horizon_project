@@ -178,24 +178,8 @@
         </form>
 
         <div class="footer">
-            Pas encore de compte ? <a href="#">S'inscrire</a>
+            Pas encore de compte ? <a href="/">S'inscrire</a>
         </div>
     </div>
-
-    {{-- <script>
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Show error message example
-            const errorDiv = document.getElementById('error-messages');
-            errorDiv.style.display = 'block';
-            
-            // Simulate form submission
-            setTimeout(() => {
-                errorDiv.style.display = 'none';
-                // Here you would typically handle the actual form submission
-            }, 3000);
-        });
-    </script> --}}
 </body>
 </html>

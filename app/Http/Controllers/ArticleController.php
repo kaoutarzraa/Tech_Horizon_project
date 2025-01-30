@@ -42,13 +42,6 @@ class ArticleController extends Controller
     }
 
 
-    // Afficher un article spécifique
-    public function show($id)
-    {
-        $article = Article::findOrFail($id);
-        return view('articles.show', compact('article'));
-    }
-    
     public function create(Request $request)
     {
         $validatedData = $request->validate([
@@ -57,8 +50,6 @@ class ArticleController extends Controller
             'theme_id' => 'required|exists:themes,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
-    
-        
     
         if ($request->hasFile('image')) { 
             $image = $request->file('image');
@@ -89,11 +80,10 @@ class ArticleController extends Controller
         $themes = Theme::all();
 
         return view('articles.edit', compact('article', 'themes'));
-    }
+    }   
 
     public function update(Request $request, $id)
     {
-        // Validate the request data
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
@@ -101,51 +91,54 @@ class ArticleController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
     
-        // Find the article to update
         $article = Article::findOrFail($id);
     
-        // Handle image upload if a new file is provided
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = uniqid() . '_' . $image->getClientOriginalName();
     
-            // Move the uploaded file to the public/Uploads directory
             $image->move(public_path('Uploads'), $imageName);
     
-            // Update the image_url in the validated data
             $validatedData['image_url'] = 'Uploads/' . $imageName;
     
-            // Optionally, delete the old image file if it exists
             if ($article->image_url && file_exists(public_path($article->image_url))) {
                 unlink(public_path($article->image_url));
             }
         } else {
-            // Retain the existing image_url if no new file is uploaded
+
             $validatedData['image_url'] = $article->image_url;
         }
     
-        // Update the article with the validated data
         $article->update($validatedData);
     
-        // Redirect back with a success message
         return redirect()->back()->with('success', 'Article mis à jour avec succès.');
     }
 
     // Supprimer un article
     public function destroy($id)
     {
-        // Find the article by its ID
+        
         $article = Article::findOrFail($id);
-    
-        // Check if the article has an associated image and delete it from the server
+        
         if ($article->image_url && file_exists(public_path($article->image_url))) {
             unlink(public_path($article->image_url));
         }
-    
-        // Delete the article from the database
+        
         $article->delete();
     
-        // Redirect back with a success message
         return redirect()->back()->with('success', 'Article supprimé avec succès.');
     }
+
+    public function statisticsArticles(){
+        $themes = Theme::where('responsable_id' , Auth::id())->get();
+        $articlesCount = Article::whereIn('theme_id', $themes->pluck('id'))->count();
+        $articlesPublishedCount = Article::whereIn('theme_id', $themes->pluck('id'))->where('status', 'publie')->count();
+        $articlesPendingCount = Article::whereIn('theme_id', $themes->pluck('id'))->where('status', 'propose')->count();
+        $subscriptionsCount = ThemeSubscription::whereIn('theme_id', $themes->pluck('id'))->count();
+        $subscriptionsActiveCount = ThemeSubscription::whereIn('theme_id', $themes->pluck('id'))->where('status', 'actif')->count();
+        $subscriptionsExpireCount = ThemeSubscription::whereIn('theme_id', $themes->pluck('id'))->where('status', 'expire')->count();
+
+        return view('Responsable.ViewStatistics' , compact('articlesCount' , 'articlesPublishedCount' , 'articlesPendingCount' , 'subscriptionsCount' , 'subscriptionsActiveCount' , 'subscriptionsExpireCount'));
+    }
+
 }

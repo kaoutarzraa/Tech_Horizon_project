@@ -23,7 +23,7 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
+        
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->route('home');
@@ -55,6 +55,15 @@ class AuthController extends Controller
         $allThemes = $this->themeController->getAllThemes();
 
         return redirect()->route('home')->with('themes', $allThemes);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('/');
     }
 
     public function showTheme($id)

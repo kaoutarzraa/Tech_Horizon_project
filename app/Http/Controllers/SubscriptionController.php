@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Theme;
 use App\Models\ThemeSubscription;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,7 +47,12 @@ class SubscriptionController extends Controller
             ]);
 
             $articles = Article::where('is_active', true)->where('theme_id', $id)->latest()->get();
-            // Redirect back with a success message
+            
+            $user = User::find(Auth::id());
+            if ($user) {
+                $user->update(['role' => 'abonne']);
+            }
+            
             return redirect()->back()->with('success', 'Vous êtes maintenant abonné au thème "' . $theme->name . '" !')->with('articles' , $articles);
 
         } catch (\Exception $e) {

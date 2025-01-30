@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title', 100);
             $table->date('publication_date')->nullable();
-            $table->enum('status', ['en_preparation', 'publie', 'public', 'archive']);
+            $table->enum('status', ['en_preparation', 'publie', 'public', 'archive'])->default('en_preparation');
             $table->string('cover_image')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
